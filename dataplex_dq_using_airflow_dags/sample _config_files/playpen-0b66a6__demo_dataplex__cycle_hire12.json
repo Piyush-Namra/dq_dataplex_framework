@@ -1,0 +1,104 @@
+{
+    "rules": [
+      {
+        "non_null_expectation": {
+  
+        },
+        "dimension": "COMPLETENESS",
+        "column": "bike_id",
+        "threshold": 1,
+        "ignore_null": false
+      },
+      {
+        "range_expectation": {
+          "min_value": "1800",
+          "max_value": "6660",
+          "strict_min_enabled": true,
+          "strict_max_enabled": true
+        },
+        "dimension": "VALIDITY",
+        "column": "duration"
+      },
+      {
+        "uniqueness_expectation": {
+  
+        },
+        "dimension": "UNIQUENESS",
+        "column": "rental_id",
+        "threshold": 1,
+        "ignore_null": true
+      },
+      {
+        "row_condition_expectation": {
+          "sql_expression": "duration \u003E= 1800"
+        },
+        "dimension": "VALIDITY",
+        "column": "duration",
+        "threshold": 1
+      },
+      {
+        "regex_expectation": {
+          "regex": "^[a-zA-Z0-9]+$"
+        },
+        "dimension": "VALIDITY",
+        "column": "end_station_name",
+        "threshold": 1,
+        "ignore_null": true
+      },
+      {
+        "set_expectation": {
+          "values": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "dimension": "VALIDITY",
+        "column": "duration_ms",
+        "threshold": 1,
+        "ignore_null": true
+      },
+      {
+        "row_condition_expectation": {
+          "sql_expression": "0 \u003C end_station_priority_id AND end_station_priority_id \u003C 100"
+        },
+        "dimension": "VALIDITY",
+        "column": "end_station_priority_id",
+        "threshold": 1
+      },
+      {
+        "table_condition_expectation": {
+          "sql_expression": "0 \u003C avg(end_station_priority_id) AND avg(end_station_priority_id) \u003C 0"
+        },
+        "dimension": "VALIDITY"
+      },
+      {
+        "sql_assertion": {
+          "sql_statement": "SELECT * FROM ${data()} WHERE bike_id \u003E 100"
+        },
+        "dimension": "VALIDITY"
+      }
+    ],
+    "post_scan_actions": {
+      "bigquery_export": {
+        "results_table": "//bigquery.googleapis.com/projects/playpen-0b66a6/datasets/demo_dataplex/tables/export_dq_results_table"
+      },
+      "notification_report": {
+        "recipients": {
+          "emails": [
+            "piyush.namra@lloydsbanking.com",
+            "onkar.kulkarni@lloydsbanking.com"
+          ]
+        },
+        "score_threshold_trigger": {
+          "score_threshold": 80
+        },
+        "job_failure_trigger": {
+  
+        },
+        "job_end_trigger": {
+  
+        }
+      }
+    }
+  }

@@ -1,0 +1,61 @@
+project_id: "playpen-0b66a6"
+region: "europe-west1"
+uuid: "0002"
+lake:
+  lake_id: "dag-lake"
+  display_name: "your_dataplex_lake_display_name"
+  description: "your_dataplex_lake_description"
+  labels:
+    env: "your_dataplex_lake_label_env"
+raw_zone:
+  zone_id: "dag-raw-zone-id"
+  display_name: "dag_raw_zone_id"
+  description: "your_dataplex_raw_zone_description"
+  type: "RAW"
+  resource_spec:
+    location_type: "SINGLE_REGION"
+  labels:
+    env: "your_dataplex_zone_label_env"
+curated_zone:
+  zone_id: "dag-curated-zone-id"
+  display_name: "dag-curated-zone-id"
+  description: "your_dataplex_curated_zone_description"
+  type: "CURATED"
+  resource_spec:
+    location_type: "SINGLE_REGION"
+  labels:
+    env: "your_dataplex_zone_label_env"
+bq_asset:
+  asset_id: "curated"
+  display_name: "your_dataplex_bq_asset_display_name"
+  description: "your_dataplex_bq_asset_description"
+  resource_spec:
+    type: "BIGQUERY_DATASET"
+    name: "projects/playpen-0b66a6/datasets/test_dataplex_objects_2"
+  discovery_spec:
+    enabled: true
+    include_patterns:
+      - "*"
+      - "*_temp"
+    exclude_patterns:
+      - "*"
+      - "*_temp"
+  labels:
+    env: "your_dataplex_asset_label_env"
+gcs_asset:
+  asset_id: "asset-dag-raw-zone-id"
+  display_name: "your_dataplex_gcs_asset_display_name"
+  description: "your_dataplex_gcs_asset_description"
+  resource_spec:
+    type: "STORAGE_BUCKET"
+    name: "projects/playpen-0b66a6/buckets/test_dataplex_objects_2"
+  discovery_spec:
+    enabled: true
+    include_patterns:
+      - "*"
+      - "pattern2"
+    exclude_patterns:
+      - "*"
+      - "pattern4"
+  labels:
+    env: "your_dataplex_asset_label_env"
